@@ -9,12 +9,8 @@ class Say
   end
 
   def in_english
-    if @number.between?(1000,999_999_999)
+    if @number.between?(1,999_999_999_999)
       return above_thousand(@number).rstrip
-    elsif @number.between?(100,999)
-      return say_hundreds(@number).rstrip
-    elsif @number.between?(1,99)
-      return under_one_hundred(@number).rstrip
     elsif @number === 0
       return 'zero'
     else
@@ -35,7 +31,7 @@ class Say
     @@ones[number] if number < 10
   end
 
-  def say_hundreds(number)
+  def hundreds(number)
     if number > 99 then
       return @@ones[number/100] + ' hundred ' + under_one_hundred(number%100)
     else
@@ -44,8 +40,24 @@ class Say
   end
 
   def above_thousand(number)
-    index = (number.to_s.length-1) / 3
-    new_number = number / (1000**index)
-    return under_one_hundred(new_number) + ' ' + @@kmb[index] + ' ' + say_hundreds(number % 1000)
+    str = ''
+    if number >= 1_000_000_000
+      str = hundreds(number / 1_000_000_000).to_s + ' ' + @@kmb[3] + ' '
+      number = number % 1_000_000_000
+    end
+    if number >= 1_000_000
+      str += hundreds(number / 1_000_000).to_s + ' ' + @@kmb[2] + ' ' if hundreds(number / 1_000_000)
+      number = number % 1_000_000
+    end
+    if number >= 1_000
+      str += hundreds(number / 1_000).to_s + ' ' + @@kmb[1] + ' ' if hundreds(number / 1_000)
+      number = number % 1_000
+    end
+    str += hundreds(number)
+    str
   end
+end
+
+module BookKeeping
+  VERSION = 1
 end

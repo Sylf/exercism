@@ -70,19 +70,19 @@ class SayTest < Minitest::Test
   end
 
   def test_one_billion
-    skip
+    # skip
     question = 1_000_000_000
     assert_equal('one billion', Say.new(question).in_english)
   end
 
   def test_a_big_number
-    skip
+    # skip
     question = 987_654_321_123
     assert_equal('nine hundred eighty-seven billion six hundred fifty-four million three hundred twenty-one thousand one hundred twenty-three', Say.new(question).in_english)
   end
 
   def test_numbers_below_zero_are_out_of_range
-    skip
+    # skip
     question = -1
     assert_raises ArgumentError do
       Say.new(question).in_english
@@ -90,7 +90,7 @@ class SayTest < Minitest::Test
   end
 
   def test_numbers_above_999999999999_are_out_of_range
-    skip
+    # skip
     question = 1_000_000_000_000
     assert_raises ArgumentError do
       Say.new(question).in_english
@@ -115,7 +115,7 @@ class SayTest < Minitest::Test
   # http://ruby-doc.org/docs/ruby-doc-bundle/UsersGuide/rg/constants.html
 
   def test_bookkeeping
-    skip
+    # skip
     assert_equal 1, BookKeeping::VERSION
   end
 end
