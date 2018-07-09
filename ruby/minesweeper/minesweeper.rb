@@ -5,12 +5,27 @@ module Board
 
     raise ArgumentError if inp[0] !~ /^\+\-+\+$/
     raise ArgumentError if inp[-1] !~ /^\+\-+\+$/
-    inp.each_with_index { |line,i|
+    inp.each_with_index { |line,y|
       raise ArgumentError if line.size != width
-      raise ArgumentError if line !~ /^\|[* ]+\|$/ && i > 0 && i < (height-1)
+      raise ArgumentError if line !~ /^\|[* ]+\|$/ && y > 0 && y < (height-1)
     }
 
+    inp.each_with_index { |line,y|
+      line.chars.each_with_index { |char,x|
+        update_mine_count(inp,x,y) if char==' '
+      }
+    }
 
-    ["+------+", "|1*22*1|", "|12*322|", "| 123*2|", "|112*4*|", "|1*22*2|", "|111111|", "+------+"]
+    inp
+  end
+
+  def self.update_mine_count(inp,x,y)
+    mine_count = 0
+    ((x-1)..(x+1)).each { |x1|
+      ((y-1)..(y+1)).each { |y1|
+        mine_count += 1 if inp[y1][x1] == '*'
+      }
+    }
+    inp[y][x] = mine_count.to_s if mine_count > 0
   end
 end
