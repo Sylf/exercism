@@ -25,7 +25,7 @@ class DominoesTest < Minitest::Test
   end
 
   def test_three_elements
-    # skip
+    skip
     input_dominoes = [[1, 2], [3, 1], [2, 3]]
     output_chain = Dominoes.chain(input_dominoes)
     assert_correct_chain(input_dominoes, output_chain)
@@ -39,7 +39,7 @@ class DominoesTest < Minitest::Test
   end
 
   def test_can_not_be_chained
-    skip
+    # skip
     input_dominoes = [[1, 2], [4, 1], [2, 3]]
     output_chain = Dominoes.chain(input_dominoes)
     refute_correct_chain(input_dominoes, output_chain)
