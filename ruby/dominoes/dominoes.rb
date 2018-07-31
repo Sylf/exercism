@@ -9,7 +9,25 @@ class Dominoes
     []
   end
 
+  def build_chain(chain, pool)
+    matcher = chain.last.last
+    pool.each_with_index { | domino, idx |
+      if matcher == domino.first
+        # pseudo code here
+        build_chain(chain.dup.push(domino), { pp = pool.dup; pp.delete_at(idx); pp } )
+      elsif matcher == domino.last
+        build_chain(chain.dup.push(domino.reverse), { pp = pool.dup; pp.delete_at(idx); pp } )
+      end
+    }
 
-
-
+    if pool is empty and chain is valid
+      return chain
+    elsif pool is empty and chain is invalid
+      if all permutations tested
+        return nil
+      else
+        build_chain()
+      end
+    end
+  end
 end
