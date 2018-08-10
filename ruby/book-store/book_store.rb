@@ -1,35 +1,45 @@
 class BookStore
   def self.calculate_price(books)
-    net = books.size * 8
-
     stacks = []
 
     books.each { |book|
-      empty_slot_found = false
-      stacks.each { |stack|
-        if ! (stacks[stack].include?(book))
-          stacks[stack].push book
-          empty_slot_found = true
+      stack_found = 0
+      if stacks.size == 0
+        stacks.push([book])
+        next
+      end
+      stacks.each_with_index { |stack,idx|
+        if !stacks[idx].include?(book)
+          stacks[idx].push book if stack_found != 1
+          stack_found = 1
+          next
         end
       }
-      if !empty_slot_found
-        stacks.push [book]
-      end
+      next if stack_found == 1
+      stacks.push ([book])
     }
 
-    if books.uniq.size == 2
-      net -= net * 0.05
-    end
-    if books.uniq.size == 3
-      net -= net * 0.10
-    end
-    if books.uniq.size == 4
-      net -= net * 0.20
-    end
-    if books.uniq.size == 5
-      net -= net * 0.25
-    end
 
+    net = 0
+
+    stacks.each { |stack|
+      subnet = stack.size * 8
+
+      if stack.uniq.size == 2
+        subnet -= subnet * 0.05
+      end
+      if stack.uniq.size == 3
+        subnet -= subnet * 0.10
+      end
+      if stack.uniq.size == 4
+        subnet -= subnet * 0.20
+      end
+      if stack.uniq.size == 5
+        subnet -= subnet * 0.25
+      end
+
+      net += subnet
+    }
 
     net
   end
