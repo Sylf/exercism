@@ -19,6 +19,27 @@ class BookStore
       stacks.push ([book])
     }
 
+    while stacks.any? {|stack| stack.size == 5} do
+      stack_of_five = nil
+      stack_of_three = nil
+      stacks.each_with_index { |stack, idx|
+          stack_of_five = idx if stack.size==5
+          stack_of_three = idx if stack.size==3
+      }
+
+      if !stack_of_five.nil? && !stack_of_three.nil?
+        stack = stacks[stack_of_five]
+
+        stack.each_with_index { |book, idx|
+          if !stacks[stack_of_three].include?(book)
+            stacks[stack_of_three].push(book)
+            stacks[stack_of_five].delete_at(idx)
+          end
+        }
+      else
+        break
+      end
+    end
 
     net = 0
 
@@ -43,4 +64,8 @@ class BookStore
 
     net
   end
+end
+
+module BookKeeping
+  VERSION=0
 end
