@@ -12,8 +12,7 @@ class OcrNumbers
     lines.map!(&:chars)
     output = []
 
-    i = 0
-    while i < lines.size
+    (0..(lines.size-1)).step(4) do |i|
       sub_number = []
       while lines[i].size > 0 do
         sub_number.push(lines[i].shift(3) + lines[i+1].shift(3) + lines[i+2].shift(3) + lines[i+3].shift(3))
@@ -23,7 +22,6 @@ class OcrNumbers
           memo += ocr_digit(item.join)
         end
       )
-      i+=4
     end
 
     output.join(',')
