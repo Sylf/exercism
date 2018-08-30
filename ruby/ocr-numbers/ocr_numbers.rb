@@ -15,7 +15,7 @@ class OcrNumbers
     (0..(lines.size-1)).step(4) do |i|
       sub_number = []
       while lines[i].size > 0 do
-        sub_number.push(lines[i].shift(3) + lines[i+1].shift(3) + lines[i+2].shift(3) + lines[i+3].shift(3))
+        sub_number.push(lines[i].shift(3) + lines[i+1].shift(3) + lines[i+2].shift(3) )
       end
       output.push (
         sub_number.reduce("") do |memo, item|
@@ -32,53 +32,43 @@ class OcrNumbers
     {
       " _ " +
       "| |" +
-      "|_|" +
-      "   " => "0",
+      "|_|" => "0",
 
       "   " +
       "  |" +
-      "  |" +
-      "   " => "1",
+      "  |" => "1",
 
       " _ " +
       " _|" +
-      "|_ " +
-      "   " => "2",
+      "|_ " => "2",
 
       " _ " +
       " _|" +
-      " _|" +
-      "   " => "3",
+      " _|" => "3",
 
       "   " +
       "|_|" +
-      "  |" +
-      "   " => "4",
+      "  |" => "4",
 
       " _ " +
       "|_ " +
-      " _|" +
-      "   " => "5",
+      " _|" => "5",
 
       " _ " +
       "|_ " +
-      "|_|" +
-      "   " => "6",
+      "|_|" => "6",
 
       " _ " +
       "  |" +
-      "  |" +
-      "   " => "7",
+      "  |" => "7",
 
       " _ " +
       "|_|" +
-      "|_|" +
-      "   " => "8",
+      "|_|" => "8",
 
       " _ " +
       "|_|" +
-      " _|" +
-      "   " => "9",
+      " _|" => "9",
 
     }[input_digit] || "?"
   end
