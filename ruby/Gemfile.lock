@@ -33,6 +33,7 @@ GEM
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
+    power_assert (1.1.3)
     powerpack (0.1.2)
     pry (0.11.3)
       coderay (~> 1.1.0)
@@ -52,6 +53,8 @@ GEM
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
     shellany (0.0.1)
+    test-unit (3.2.8)
+      power_assert
     thor (0.20.0)
     unicode-display_width (1.4.0)
 
@@ -63,6 +66,7 @@ DEPENDENCIES
   guard-minitest
   minitest
   rubocop
+  test-unit
 
 BUNDLED WITH
    1.16.1
